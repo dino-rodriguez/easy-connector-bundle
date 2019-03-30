@@ -5,11 +5,8 @@ async function runConnector (opts) {
     env: opts.env,
     ilpAddress: opts.env + '.' + opts.name,
     spread: 0,
-    store: 'ilp-store-redis',
-    storeConfig: {
-      prefix: opts.env + '.' + opts.name,
-      port: opts.redisPort
-    },
+    store: 'leveldown',
+    storePath: './leveldown',
     backend: 'ecb-plus-xrp',
     adminApi: true,
     adminApiPort: opts.adminApiPort,

@@ -1,3 +1,5 @@
-# ilp-node
+# Easy Connector Bundle 
 
-Local ilp node
+> An easy to run connector bundle
+* Overview
+* Usage
