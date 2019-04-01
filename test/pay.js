@@ -1,6 +1,6 @@
 const BtpPlugin = require('ilp-plugin-btp')
 const crypto = require('crypto')
-const logger = require('riverpig')('ilp-node:pay')
+const logger = require('riverpig')('easy-connector-bundle:pay')
 const spsp = require('ilp-protocol-spsp')
 
 async function pay (connectorPort, paymentPointer, sourceAmount) {
