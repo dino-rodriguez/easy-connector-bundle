@@ -5,7 +5,7 @@
 * Usage
 
 ## Overview
-All the components necessary to operate an [ilp-connector]() in a single process:
+All the components necessary to operate an [ilp-connector](https://github.com/interledgerjs/ilp-connector) in a single process:
 
 * Connector to connect to the network
 * SPSP server to receive payments
@@ -21,6 +21,11 @@ config file. In the example config, the connector, the plugins, and the spsp
 server are using a minimum viable configuration (only required options).
 
 ### Local
+0) Install deps
+
+```
+yarn
+```
 1) Store the path of your `config.json` in the env
 
 ```

@@ -290,7 +290,7 @@ bignumber.js@^6.0.0:
   resolved "https://registry.yarnpkg.com/bignumber.js/-/bignumber.js-6.0.0.tgz#bbfa047644609a5af093e9cbd83b0461fa3f6002"
   integrity sha512-x247jIuy60/+FtMRvscqfxtVHQf8AGx2hm9c6btkgC0x/hp9yt+teISNhvF8WlwRkCc5yF2fDECH8SIMe8j+GA==
 
-bignumber.js@^7.2.1:
+bignumber.js@^7.0.2, bignumber.js@^7.2.1:
   version "7.2.1"
   resolved "https://registry.yarnpkg.com/bignumber.js/-/bignumber.js-7.2.1.tgz#80c048759d826800807c4bfd521e50edbba57a5f"
   integrity sha512-S4XzBk5sMB+Rcb/LNcpzXr57VRTxgAvaAEDAl1AwRx27j00hT84O6OkteE7u8UB3NuaaygCRrEpqox4uDOrbdQ==
@@ -1399,7 +1399,7 @@ ilp-packet@^3.0.7, ilp-packet@^3.0.8:
     long "^4.0.0"
     oer-utils "^4.0.0"
 
-ilp-plugin-btp@^1.2.1, ilp-plugin-btp@^1.3.5, ilp-plugin-btp@^1.3.7:
+ilp-plugin-btp@^1.2.1, ilp-plugin-btp@^1.3.5, ilp-plugin-btp@^1.3.6, ilp-plugin-btp@^1.3.7:
   version "1.3.10"
   resolved "https://registry.yarnpkg.com/ilp-plugin-btp/-/ilp-plugin-btp-1.3.10.tgz#3c7410f2426b56effb7b6c49d1fc9526b0b56950"
   integrity sha512-kTpSqrvW56sK15lkF/a/HjUaquIG+/Mam+7NlA/MEiD7h2m2qYp9RKoapwuKskLVJjQOUjEqxCim67FdSyyp6g==
@@ -1473,6 +1473,21 @@ ilp-plugin-xrp-paychan-shared@^4.1.0:
     ilp-store-memory "^1.0.0"
     ripple-address-codec "^2.0.1"
     ripple-lib "^0.21.0"
+
+ilp-plugin-xrp-paychan@^2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/ilp-plugin-xrp-paychan/-/ilp-plugin-xrp-paychan-2.4.1.tgz#adb9f09255252a5dc9fddef8981d5727d309279f"
+  integrity sha512-rUDLewdzPA9NXgSuuC2VvEHTvJfT0RMWKhxz5i2EKXOupkivTHcpPAOSCBO+3XvBaKVWbFPb6DZWljnGPoygmw==
+  dependencies:
+    bignumber.js "^7.0.2"
+    btp-packet "^2.2.0"
+    debug "^3.1.0"
+    ilp-logger "^1.1.3"
+    ilp-plugin-btp "^1.3.6"
+    ilp-plugin-xrp-paychan-shared "^4.1.0"
+    ilp-store-memory "^1.0.0"
+    ripple-lib "^0.22.0"
+    tweetnacl "^1.0.0"
 
 ilp-plugin@^3.1.0:
   version "3.2.1"
@@ -2931,6 +2946,24 @@ ripple-lib@^0.21.0:
     ripple-lib-transactionparser "^0.6.2"
     ws "^3.3.1"
 
+ripple-lib@^0.22.0:
+  version "0.22.0"
+  resolved "https://registry.yarnpkg.com/ripple-lib/-/ripple-lib-0.22.0.tgz#09c230eaa036dc544c7fb60536c25c527a2c45f7"
+  integrity sha1-CcIw6qA23FRMf7YFNsJcUnosRfc=
+  dependencies:
+    "@types/lodash" "^4.14.85"
+    "@types/ws" "^3.2.0"
+    bignumber.js "^4.1.0"
+    https-proxy-agent "2.2.1"
+    jsonschema "1.2.2"
+    lodash "^4.17.4"
+    ripple-address-codec "^2.0.1"
+    ripple-binary-codec "^0.1.13"
+    ripple-hashes "^0.3.1"
+    ripple-keypairs "^0.10.1"
+    ripple-lib-transactionparser "^0.6.2"
+    ws "^3.3.1"
+
 riverpig@^1.1.3, riverpig@^1.1.4:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/riverpig/-/riverpig-1.1.4.tgz#83da1a77a1b54f2a6130e7115b001533446a1340"
@@ -3342,6 +3375,11 @@ tunnel-agent@^0.6.0:
   integrity sha1-J6XeoGs2sEoKmWZ3SykIaPD8QP0=
   dependencies:
     safe-buffer "^5.0.1"
+
+tweetnacl@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-1.0.1.tgz#2594d42da73cd036bd0d2a54683dd35a6b55ca17"
+  integrity sha512-kcoMoKTPYnoeS50tzoqjPY3Uv9axeuuFAZY9M/9zFnhoVvRfxz9K29IMPD7jGmt2c8SW7i3gT9WqDl2+nV7p4A==
 
 type-check@~0.3.2:
   version "0.3.2"
