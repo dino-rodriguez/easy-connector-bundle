@@ -1,10 +1,10 @@
 # Easy Connector Bundle 
 
-> An easy to run connector bundle
-* Overview
-* Usage
+> A bundle to easily run an Interledger connector
+* [Overview](#overview)
+* [Usage](#usage)
 
-## Overview
+## <a name="overview"></a>Overview
 All the components necessary to operate an [ilp-connector](https://github.com/interledgerjs/ilp-connector) in a single process:
 
 * Connector to connect to the network
@@ -15,7 +15,7 @@ Significantly reduces configuration necessary to run the connector by providing
 sensible defaults for plugins and most connector options. Configuration for all
 components are specified in one JSON file.
 
-## Usage
+## <a name="usage"></a>Usage
 Refer `test/test.js` for example usage and `test/config.json` for an example
 config file. In the example config, the connector, the plugins, and the spsp
 server are using a minimum viable configuration (only required options).
