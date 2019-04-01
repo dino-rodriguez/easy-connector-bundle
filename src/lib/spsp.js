@@ -2,19 +2,17 @@ const BtpPlugin = require('ilp-plugin-btp')
 const { Server } = require('ilp-protocol-stream')
 const Koa = require('koa')
 const crypto = require('crypto')
-const logger = require('riverpig')('ilp-node:spsp')
+const logger = require('riverpig')('easy-connector-bundle:spsp')
 
-async function runServer (connectorPort, serverPort) {
-  const pluginSecret = crypto.randomBytes(16).toString('hex')
-  const btpPlugin = new BtpPlugin({
-    server: `btp+ws://:${pluginSecret}@localhost:${connectorPort}`
-  })
+async function startSPSPServer (opts) {
+  if (!opts.plugin) throw Error('plugin required to connect to connector')
+  if (!opts.port) throw Error('port required')
 
-  logger.info(`Connecting to connector on port ${connectorPort}..`)
-  await btpPlugin.connect()
+  await opts.plugin.connect()
+  logger.info(`Connecting to connector..`)
 
   const streamServer = new Server({
-    plugin: btpPlugin,
+    plugin: opts.plugin,
     serverSecret: crypto.randomBytes(32)
   })
 
@@ -49,10 +47,8 @@ async function runServer (connectorPort, serverPort) {
   const httpServer = new Koa()
   httpServer
     .use(handleSPSP)
-    .listen(serverPort)
-  logger.info(`SPSP server listening on port ${serverPort}..`)
+    .listen(opts.port)
+  logger.info(`SPSP server listening on port ${opts.port}..`)
 }
 
-module.exports = {
-  runServer
-}
+module.exports = startSPSPServer 

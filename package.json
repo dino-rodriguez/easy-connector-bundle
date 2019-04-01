@@ -12,6 +12,7 @@
     "ilp-plugin-http": "^1.2.1",
     "ilp-plugin-mini-accounts": "^4.0.2",
     "ilp-plugin-xrp-asym-server": "^1.8.0",
+    "ilp-plugin-xrp-paychan": "^2.4.1",
     "ilp-protocol-spsp": "^2.2.0",
     "ilp-protocol-stream": "^1.8.9",
     "koa": "^2.7.0",

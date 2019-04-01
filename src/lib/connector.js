@@ -1,77 +1,37 @@
 const Connector = require('ilp-connector')
+const { error } = require('./util')
 
-async function runConnector (opts) {
-  const connector = Connector.createApp({
-    env: opts.env,
-    ilpAddress: opts.env + '.' + opts.name,
-    spread: 0,
-    store: 'leveldown',
-    storePath: './leveldown',
-    backend: 'ecb-plus-xrp',
-    adminApi: true,
-    adminApiPort: opts.adminApiPort,
-    accounts: {
-      peer: {
-        relation: 'peer',
-        plugin: 'ilp-plugin-http',
-        assetCode: 'XRP',
-        assetScale: 9,
-        maxPacketAmount: '1000000',
-        rateLimit: {
-          refillCount: 1000000
-        },
-        options: {
-          incoming: {
-            port: opts.http.incomingPort,
-            secret: 'secret'
-          },
-          outgoing: {
-            url: `http://localhost:${opts.http.outgoingPort}`,
-            secret: 'secret',
-            http2: false,
-            tokenExpiry: 10 * 1000,
-            name: opts.name
-          }
-        }
-      },
-      miniAccounts: {
-        relation: 'child',
-        plugin: 'ilp-plugin-mini-accounts',
-        assetCode: 'XRP',
-        assetScale: 9,
-        maxPacketAmount: '1000000',
-        rateLimit: {
-          refillCount: 1000000
-        },
-        options: {
-          wsOpts: {
-            port: opts.miniAccounts.port 
-          }
-        }
-      },
-      xrp: {
-        relation: 'child',
-        plugin: 'ilp-plugin-xrp-asym-server',
-        assetCode: 'XRP',
-        assetScale: 9,
-        maxPacketAmount: '1000000',
-        rateLimit: {
-          refillCount: 1000000
-        },
-        options: {
-          port: opts.xrp.port,
-          address: opts.xrp.address,
-          secret: opts.xrp.secret,
-          xrpServer: opts.xrp.xrpServer,
-          maxBalance: 1000000,
-          maxPacketAmount: 1000000,
-        }
-      }
-    }
+function getConnector (opts) {
+  const {
+    env,
+    name,
+    spread,
+    store,
+    storePath,
+    backend,
+    adminApi,
+    adminApiPort,
+    accounts,
+    ...extraConnectorOpts
+  } = opts
+
+  return Connector.createApp({
+    env: env || error('ilp network env required'),
+    ilpAddress: _getIlpAddress(opts),
+    spread: Number(spread) || 0,
+    store: store || 'leveldown',
+    storePath: storePath || './database',
+    backend: backend || 'ecb-plus-xrp',
+    adminApi: Boolean(adminApi) || true,
+    adminApiPort: Number(adminApiPort) || 7769,
+    accounts: accounts || {},
+    ...extraConnectorOpts
   })
-  await connector.listen()
 }
 
-module.exports = {
-  runConnector
+function _getIlpAddress (opts) {
+  if (!opts.name) throw Error('ilp address name required')
+  return opts.env + '.' + opts.name
 }
+
+module.exports = getConnector 
