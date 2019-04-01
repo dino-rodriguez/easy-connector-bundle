@@ -18,25 +18,47 @@ components are specified in one JSON file.
 ## <a name="usage"></a>Usage
 Refer `test/test.js` for example usage and `test/config.json` for an example
 config file. In the example config, the connector, the plugins, and the spsp
-server are using a minimum viable configuration (only required options).
+server are using a minimum viable configuration (only required options). 
 
-### Local
+Store the connector config path in the environment variable `CONNECTOR_CONFIG_PATH`.
+Replace the `./test/config.json` path for your custom connector config when you have
+created one.
+
+### Source 
 0) Install deps
-
 ```
+git clone git@github.com:d1no007/easy-connector-bundle.git
+cd easy-connector-bundle
 yarn
 ```
-1) Store the path of your `config.json` in the env
 
+1) Run
 ```
-CONNECTOR_CONFIG_PATH=./config.json
+CONNECTOR_CONFIG_PATH=./test/config.json node index.js
+```
+
+### NPM 
+0) Install deps
+```
+yarn add easy-connector-bundle
+```
+
+1) **index.js**
+```
+const app = require('easy-connector-bundle')
+
+const config = require(process.env.CONNECTOR_CONFIG_PATH)
+app.run(config).catch(e => {
+  logger.error(e)
+  process.exit(1)
+})
 ```
 
 2) Run
+```
+CONNECTOR_CONFIG_PATH=./test/config.json node index.js
+```
 
-```
-node index.js
-```
 
 TODO
 ----
