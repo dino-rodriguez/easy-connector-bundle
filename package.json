@@ -1,6 +1,6 @@
 {
-  "name": "ilp-node",
-  "version": "0.1.0",
+  "name": "easy-connector-bundle",
+  "version": "1.0.0",
   "main": "index.js",
   "scripts": {},
   "keywords": [],
