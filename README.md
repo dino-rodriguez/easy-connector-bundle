@@ -64,5 +64,6 @@ TODO
 ----
 - [ ] Load config into Dockerfile
 - [ ] Docker instructions
+- [ ] Configuration instructions
 - [ ] Integrate `ilp-plugin-xrp-hybrid`
 - [ ] Tests
