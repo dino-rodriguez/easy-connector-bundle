@@ -1,0 +1,66 @@
+{
+  "connector": {
+    "env": "test",
+    "name": "easy-connector",
+    "store": "memdown"
+  },
+  "plugins": {
+    "local": {
+      "plugin": "ilp-plugin-mini-accounts",
+      "options": {
+        "wsOpts": {
+          "port": 7768
+        }
+      }
+    },
+    "xrpServer": {
+      "plugin": "ilp-plugin-xrp-asym-server",
+      "options": {
+        "port": 2000,
+        "address": "rMM3yz5URRkSEyhpTfvPwcZp82f3UwgHV3",
+        "secret": "spjawvDekaV5aU3ZoFJqUakWoQUdb",
+        "xrpServer": "wss://s.altnet.rippletest.net:51233"
+      }
+    },
+    "httpPeer": {
+      "plugin": "ilp-plugin-http",
+      "options": {
+        "incoming": {
+          "port": 3000,
+          "secret": "abc"
+        },
+        "outgoing": {
+          "url": "http://localhost:4000",
+          "secret": "abc"
+        }
+      }
+    },
+    "xrpPeer": {
+      "plugin": "ilp-plugin-xrp-paychan",
+      "options": {
+        "listener": {
+          "port": 4000,
+          "secret": "abc"
+        },
+        "address": "rMM3yz5URRkSEyhpTfvPwcZp82f3UwgHV3",
+        "secret": "spjawvDekaV5aU3ZoFJqUakWoQUdb",
+        "xrpServer": "wss://s.altnet.rippletest.net:51233",
+        "peerAddress": "rMM3yz5URRkSEyhpTfvPwcZp82f3UwgHV3"
+      }
+    },
+    "btpPeer": {
+      "plugin": "ilp-plugin-btp",
+      "options": {
+        "listener": {
+          "port": 5000,
+          "secret": "abc"
+        }
+      }
+    }
+
+  },
+  "spsp": {
+    "connectorServer": "btp+ws://:abc@localhost:7768",
+    "port": 6000
+  }
+}
