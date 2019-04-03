@@ -1,5 +1,4 @@
 const BtpPlugin = require('ilp-plugin-btp')
-const logger = require('riverpig')('easy-connector-bundle:app')
 const { App: MoneydGUI } = require('moneyd-gui')
 const reduct = require('reduct')
 const getConnector  = require('./lib/connector')
