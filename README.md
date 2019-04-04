@@ -63,8 +63,7 @@ CONNECTOR_CONFIG_PATH=./test/config.json node index.js
 TODO
 ----
 - [ ] Minimum default config
-- [ ] Load config in Dockerfile
-- [ ] Docker instructions
+- [ ] Generate config through cli questions
 - [ ] Configuration instructions
 - [ ] Integrate `ilp-plugin-xrp-hybrid`
 - [ ] Integrate `connector-peering-service` for autopeering
