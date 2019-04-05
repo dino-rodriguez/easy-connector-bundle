@@ -26,11 +26,12 @@ function updateConfig (config, connector) {
   '_validate',
   '_validateAccount'
   ]
-
-  entriesToClear.map(k => delete connector.config[k])
-  Object.keys(connector.config).map(k => {
+  const connectorConfig = JSON.parse(JSON.stringify(connector.config))
+  
+  entriesToClear.map(k => delete connectorConfig[k])
+  Object.keys(connectorConfig).map(k => {
     if (k !== 'accounts') {
-      config.connector[k] = connector.config[k]
+      config.connector[k] = connectorConfig[k]
     }
   })
 }

@@ -208,7 +208,7 @@ async function _inquireXrpPaychan (xrpOpts) {
     const peerURL= (await inquirer.prompt({
       type: 'input',
       name: 'peerURL',
-      message: 'Peer URL:',
+      message: 'Peer URL (btp+ws://:<secret>@<host>:<port>):',
     })).peerURL
     opts.server = peerURL
   }

@@ -24,15 +24,13 @@ async function addAccount (args) {
   const pluginOpts = await generatePluginOpts(plugin, {}, true, config)
 
   // Add plugin via admin API
-  const res = await fetch('http://localhost:7769/addAccount', {
+  // TODO: admin API hanging on plugin connect
+  // after adding plugin, should await here
+  const res = fetch('http://localhost:7769/addAccount', {
     method: 'post',
     body:    JSON.stringify({ id: name, options: pluginOpts }),
     headers: { 'Content-Type': 'application/json' },
   })
-
-  // TODO successfully add account
-  // const json = await res.json()
-  // logger.info(json)
 
   // Update and dump config
   config.connector.accounts[name] = pluginOpts
