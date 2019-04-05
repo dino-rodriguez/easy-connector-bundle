@@ -20,7 +20,16 @@ const rippledList = {
 }
 
 async function getBaseILPConfig (testnet) {
-  return { }
+  const ilpAddressRegex = /([a-zA-Z0-9_~-]+)+$/
+  const env = testnet ? 'test' : 'production'
+  const name = (await inquirer.prompt({
+    type: 'input',
+    name: 'name',
+    message: 'connector name (with no network prefix):',
+    validate: (name) => (ilpAddressRegex.test(name))
+  })).name
+  
+  return { env, name }
 }
 
 async function getXRPCredentials (testnet) {

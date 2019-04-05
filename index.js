@@ -29,8 +29,7 @@ if (require.main == module) {
       describe: 'Start connector bundle', 
       builder: {}, 
       handler: async () => {
-        const config = require('./test/config.json')
-        await app.start(config).catch(e => {
+        await app.start().catch(e => {
           logger.error(e)
           process.exit(1)
         })

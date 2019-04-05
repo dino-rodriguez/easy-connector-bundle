@@ -9,16 +9,24 @@ const reduct = require('reduct')
 const startSPSPServer = require('./lib/spsp')
 
 async function configure (testnet) {
-  // TODO check if a config exists
-
+  if (fs.existsSync('config.json')) {
+    throw Error('config already exists')
+  }
   const baseILPConfig = await getBaseILPConfig(testnet) 
   const xrpCredentials = await getXRPCredentials(testnet)
-  const baseConfig = JSON.stringify({ baseILPConfig, xrpCredentials }, null, 2)
+  const baseConfig = JSON.stringify({ base, xrp }, null, 2)
+
   fs.writeFileSync('config.json', baseConfig, 'utf-8')
-  logger.info('Base ILP config written to file')
+  logger.info('config written config.json')
 }
 
-async function start (config) {
+async function start () {
+  if (fs.existsSync('config.json')) {
+    const config = JSON.parse(fs.readFileSync('config.json').toString())
+  } else {
+    throw Error('must run configure first')
+  }
+
   // Start connector
   const connector = getConnector(config.connector) 
   await connector.listen()
