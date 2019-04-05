@@ -32,39 +32,46 @@ cd easy-connector-bundle
 yarn
 ```
 
-1) Run
+1) Run for usage:
 ```
-CONNECTOR_CONFIG_PATH=./test/config.json node index.js
+node index.js --help
 ```
 
 ### NPM 
 0) Install deps
 ```
-yarn add easy-connector-bundle
+yarn global add easy-connector-bundle
 ```
 
-1) **index.js**
+2) Run for usage:
 ```
-const app = require('easy-connector-bundle')
-
-const config = require(process.env.CONNECTOR_CONFIG_PATH)
-app.run(config).catch(e => {
-  logger.error(e)
-  process.exit(1)
-})
+ecb --help
 ```
 
-2) Run
+### Example using the Testnet
+0) Initial configuration, prompts you for questions:
 ```
-CONNECTOR_CONFIG_PATH=./test/config.json node index.js
+ecb configure --testnet
 ```
 
+1) Start connector. Automatically makes `ilp-plugin-mini-accounts` and `ilp-plugin-xrp-asym-server`
+and saves to config:
+```
+ecb start
+```
+
+2) Add a peer:
+```
+ecb addPeer -n xrpPeer 
+```
+
+3) Exchange credentials with your peer, and you will be connected to the network !
 
 TODO
 ----
-- [ ] Minimum default config
-- [ ] Generate config through cli questions
-- [ ] Configuration instructions
+- [x] Minimum default config
+- [x] Generate config through cli questions
+- [x] Configuration instructions
 - [ ] Integrate `ilp-plugin-xrp-hybrid`
 - [ ] Integrate `connector-peering-service` for autopeering
 - [ ] Tests
