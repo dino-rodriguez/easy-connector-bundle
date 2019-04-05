@@ -3,7 +3,7 @@ const app = require('./src/app')
 const argv = require('yargs')
 const logger = require('riverpig')('ecb:index')
 
-if (require.main == module) {
+function run () {
   argv 
     .usage('Usage: $0 <command> [options]')
     .command({
@@ -89,4 +89,11 @@ if (require.main == module) {
     .argv
 }
 
-module.exports = app
+if (require.main == module) {
+  run()
+}
+
+module.exports = {
+  app,
+  run
+} 
