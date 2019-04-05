@@ -49,8 +49,9 @@ ecb start
 
 2) Add a peer:
 ```
-ecb addPeer -n xrpPeer 
+ecb addAccount -n xrpPeer 
 ```
+Note: in the server/client prompt, you need to choose *your* side of the relationship, not your peer's.
 
 3) Exchange credentials with your peer, and you will be connected to the network !
 
