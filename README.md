@@ -24,23 +24,10 @@ Store the connector config path in the environment variable `CONNECTOR_CONFIG_PA
 Replace the `./test/config.json` path for your custom connector config when you have
 created one.
 
-### Source 
-0) Install deps
-```
-git clone git@github.com:d1no007/easy-connector-bundle.git
-cd easy-connector-bundle
-yarn
-```
-
-1) Run for usage:
-```
-node index.js --help
-```
-
 ### NPM 
 0) Install deps
 ```
-yarn global add easy-connector-bundle
+npm install -g easy-connector-bundle
 ```
 
 2) Run for usage:
