@@ -1,10 +1,11 @@
 const Connector = require('ilp-connector')
 const { error } = require('./util')
 
-function getConnector (opts) {
+function getConnector (config) {
   const {
     env,
     name,
+    ilpAddress,
     spread,
     store,
     storePath,
@@ -13,11 +14,11 @@ function getConnector (opts) {
     adminApiPort,
     accounts,
     ...extraConnectorOpts
-  } = opts
+  } = config.connector || config.base
 
   return Connector.createApp({
     env: env || error('ilp network env required'),
-    ilpAddress: _getIlpAddress(opts),
+    ilpAddress: ilpAddress || _getIlpAddress(name, env),
     spread: Number(spread) || 0,
     store: store || 'leveldown',
     storePath: storePath || './database',
@@ -29,9 +30,9 @@ function getConnector (opts) {
   })
 }
 
-function _getIlpAddress (opts) {
-  if (!opts.name) throw Error('ilp address name required')
-  return opts.env + '.' + opts.name
+function _getIlpAddress (name, env) {
+  if (!name) throw Error('ilp address name required')
+  return env + '.' + name
 }
 
 module.exports = getConnector 

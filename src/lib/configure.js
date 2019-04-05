@@ -6,6 +6,7 @@ const base64url = buf => buf
 const crypto = require('crypto')
 const { deriveKeypair, deriveAddress } = require('ripple-keypairs')
 const fetch = require('node-fetch')
+const fs = require('fs')
 const inquirer = require('inquirer')
 const { isValidAccountID, isValidSeed } = require('ripple-address-codec')
 const logger = require('riverpig')('ecb:configure')
@@ -19,7 +20,28 @@ const rippledList = {
   ]
 }
 
-async function getBaseILPConfig (testnet) {
+function updateConfig (config, connector) {
+  // These are unecessary on startup 
+  const entriesToClear = [
+  '_validate',
+  '_validateAccount'
+  ]
+
+  entriesToClear.map(k => delete connector.config[k])
+  Object.keys(connector.config).map(k => {
+    if (k !== 'accounts') {
+      config.connector[k] = connector.config[k]
+    }
+  })
+}
+
+function dumpConfig (config, path) {
+  config = JSON.stringify(config, null, 2)
+  fs.writeFileSync(path, config, 'utf-8')
+  logger.info(`config written to ${path}`)
+}
+
+async function getBaseConfig (testnet) {
   const ilpAddressRegex = /([a-zA-Z0-9_~-]+)+$/
   const env = testnet ? 'test' : 'production'
   const name = (await inquirer.prompt({
@@ -44,6 +66,7 @@ async function getXRPCredentials (testnet) {
     validate: (secret) => (testnet && secret.length === 0) || isValidSeed(secret)
   })).secret
 
+  // generate testnet credentials if none passed in
   if (testnet && !res.secret) {
     logger.info('acquiring testnet account...')
     const resp = await fetch('https://faucet.altnet.rippletest.net/accounts', { method: 'POST' })
@@ -63,7 +86,8 @@ async function getXRPCredentials (testnet) {
       validate: (address) => isValidAccountID(address)
     })).address
 
-    // Ensure that the given account exists and has enough XRP to create a channel.
+    // ensure that the given account exists 
+    // and has enough XRP to create a channel
     await validateAddress(res.xrpServer, res.address).catch((err) => {
       console.error('Error configuring xrp address: ' + err.message)
       process.exit(1)
@@ -74,6 +98,8 @@ async function getXRPCredentials (testnet) {
 }
 
 module.exports = {
-  getBaseILPConfig, 
-  getXRPCredentials
+  dumpConfig,
+  getBaseConfig, 
+  getXRPCredentials,
+  updateConfig
 } 
