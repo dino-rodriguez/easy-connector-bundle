@@ -89,7 +89,7 @@ async function getXRPCredentials (testnet) {
     // ensure that the given account exists 
     // and has enough XRP to create a channel
     await validateAddress(res.xrpServer, res.address).catch((err) => {
-      console.error('Error configuring xrp address: ' + err.message)
+      logger.error('Error configuring xrp address: ' + err.message)
       process.exit(1)
     })
   }

@@ -1,7 +1,7 @@
 const Connector = require('ilp-connector')
 const { error } = require('./util')
 
-function getConnector (config) {
+function createConnector (config) {
   const {
     env,
     name,
@@ -35,4 +35,4 @@ function _getIlpAddress (name, env) {
   return env + '.' + name
 }
 
-module.exports = getConnector 
+module.exports = createConnector 
