@@ -1,12 +1,52 @@
+'use strict'
 const app = require('./src/app')
-const logger = require('riverpig')('easy-connector-bundle:index')
+const argv = require('yargs')
+const logger = require('riverpig')('ecb:index')
 
-if (require.main === module) {
-  const config = require(process.env.CONNECTOR_CONFIG_PATH)
-  app.run(config).catch(e => {
-    logger.error(e)
-    process.exit(1)
-  })
+if (require.main == module) {
+  argv 
+    .usage('Usage: $0 <command> [options]')
+    .command({
+      command: 'configure', 
+      describe: 'Initial configuration for connector-bundle', 
+      builder: {
+        testnet: {
+          type: 'boolean',
+          alias: 't',
+          default: false,
+          description: 'Interledger testnet' 
+        }
+      }, 
+      handler: async (argv) => {
+        await app.configure(argv.testnet).catch(e => {
+          logger.error(e)
+          process.exit(1)
+        })
+      }
+    })
+    .command({
+      command: 'start', 
+      describe: 'Start connector bundle', 
+      builder: {}, 
+      handler: async () => {
+        config = require('./test/config.json')
+        await app.start(config).catch(e => {
+          logger.error(e)
+          process.exit(1)
+        })
+      }
+    })
+    .command({
+      command: 'addPlugin', 
+      describe: 'Add plugin to a running connector', 
+      builder: {}, 
+      handler: async () => {
+        console.log('define addPlugin')
+      }
+    })
+    .help('h')
+    .alias('h', 'help')
+    .argv
 }
 
 module.exports = app

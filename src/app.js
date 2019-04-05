@@ -1,11 +1,18 @@
 const BtpPlugin = require('ilp-plugin-btp')
 const { App: MoneydGUI } = require('moneyd-gui')
 const reduct = require('reduct')
-const getConnector  = require('./lib/connector')
-const getPluginOpts  = require('./lib/plugin')
+const getConnector = require('./lib/connector')
+const getPluginOpts = require('./lib/plugin')
+const getXRPCredentials = require('./lib/configure')
 const startSPSPServer = require('./lib/spsp')
 
-async function run (config) {
+async function configure (isTestnet) {
+  // TODO check if a config exists
+  const xrpCredentials = await getXRPCredentials(isTestnet)
+  console.log(xrpCredentials)
+}
+
+async function start (config) {
   // Start connector
   const connector = getConnector(config.connector) 
   await connector.listen()
@@ -36,5 +43,6 @@ async function run (config) {
 }
 
 module.exports = {
-  run
+  configure,
+  start  
 }

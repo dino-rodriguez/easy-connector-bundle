@@ -2,7 +2,7 @@ const BtpPlugin = require('ilp-plugin-btp')
 const { Server } = require('ilp-protocol-stream')
 const Koa = require('koa')
 const crypto = require('crypto')
-const logger = require('riverpig')('easy-connector-bundle:spsp')
+const logger = require('riverpig')('ecb:spsp')
 
 async function startSPSPServer (opts) {
   if (!opts.plugin) throw Error('plugin required to connect to connector')
