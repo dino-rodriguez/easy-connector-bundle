@@ -19,6 +19,10 @@ const rippledList = {
   ]
 }
 
+async function getBaseILPConfig (testnet) {
+  return { }
+}
+
 async function getXRPCredentials (testnet) {
   const rippledServers = rippledList[testnet ? 'test' : 'live']
   const defaultRippled = rippledServers[Math.floor(Math.random() * rippledServers.length)]
@@ -32,14 +36,14 @@ async function getXRPCredentials (testnet) {
   })).secret
 
   if (testnet && !res.secret) {
-    console.log('acquiring testnet account...')
+    logger.info('acquiring testnet account...')
     const resp = await fetch('https://faucet.altnet.rippletest.net/accounts', { method: 'POST' })
     const json = await resp.json()
 
     res.address = json.account.address
     res.secret = json.account.secret
-    console.log('got testnet address "' + res.address + '"')
-    console.log('waiting for testnet API to fund address...')
+    logger.info('got testnet address "' + res.address + '"')
+    logger.info('waiting for testnet API to fund address...')
     await new Promise(resolve => setTimeout(resolve, 10000))
   } else {
     res.address = (await inquirer.prompt({
@@ -60,4 +64,7 @@ async function getXRPCredentials (testnet) {
   return res 
 }
 
-module.exports = getXRPCredentials
+module.exports = {
+  getBaseILPConfig, 
+  getXRPCredentials
+} 

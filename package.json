@@ -17,6 +17,7 @@
     "ilp-protocol-stream": "^1.8.9",
     "inquirer": "^6.2.2",
     "koa": "^2.7.0",
+    "memdown": "^4.0.0",
     "moneyd-gui": "^0.1.2",
     "node-fetch": "^2.3.0",
     "reduct": "^3.3.1",

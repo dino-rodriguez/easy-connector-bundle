@@ -1,15 +1,21 @@
-const BtpPlugin = require('ilp-plugin-btp')
 const { App: MoneydGUI } = require('moneyd-gui')
-const reduct = require('reduct')
+const BtpPlugin = require('ilp-plugin-btp')
+const fs = require('fs')
 const getConnector = require('./lib/connector')
 const getPluginOpts = require('./lib/plugin')
-const getXRPCredentials = require('./lib/configure')
+const { getXRPCredentials, getBaseILPConfig } = require('./lib/configure')
+const logger = require('riverpig')('ecb:app')
+const reduct = require('reduct')
 const startSPSPServer = require('./lib/spsp')
 
-async function configure (isTestnet) {
+async function configure (testnet) {
   // TODO check if a config exists
-  const xrpCredentials = await getXRPCredentials(isTestnet)
-  console.log(xrpCredentials)
+
+  const baseILPConfig = await getBaseILPConfig(testnet) 
+  const xrpCredentials = await getXRPCredentials(testnet)
+  const baseConfig = JSON.stringify({ baseILPConfig, xrpCredentials }, null, 2)
+  fs.writeFileSync('config.json', baseConfig, 'utf-8')
+  logger.info('Base ILP config written to file')
 }
 
 async function start (config) {
