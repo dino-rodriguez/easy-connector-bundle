@@ -16,21 +16,13 @@ sensible defaults for plugins and most connector options. Configuration for all
 components are specified in one JSON file.
 
 ## <a name="usage"></a>Usage
-Refer `test/test.js` for example usage and `test/config.json` for an example
-config file. In the example config, the connector, the plugins, and the spsp
-server are using a minimum viable configuration (only required options). 
-
-Store the connector config path in the environment variable `CONNECTOR_CONFIG_PATH`.
-Replace the `./test/config.json` path for your custom connector config when you have
-created one.
-
 ### NPM 
 0) Install deps
 ```
 npm install -g easy-connector-bundle
 ```
 
-2) Run for usage:
+2) Run for usage instructions:
 ```
 ecb --help
 ```
@@ -47,19 +39,24 @@ and saves to config:
 ecb start
 ```
 
-2) Add a peer:
+2) Add a testnet XRP peer:
 ```
 ecb addAccount -n xrpPeer 
 ```
-Note: in the server/client prompt, you need to choose *your* side of the relationship, not your peer's.
+**Note**: in the server/client prompt, the choice represents your role in the relationship (e.g. choosing `server` means you are the server).
 
-3) Exchange credentials with your peer, and you will be connected to the network !
+3) If you chose `server`, give your peer the URL returned in the logs of the format
+`btp+ws://<host>:<port>`<host>:<port>. If you have HTTPS set up on your machine, replace `btp+ws` for `btp+wss` in the URL.
 
+4) Check
 TODO
 ----
 - [x] Minimum default config
 - [x] Generate config through cli questions
 - [x] Configuration instructions
-- [ ] Integrate `ilp-plugin-xrp-hybrid`
+- [ ] Configuration through environment variables
+- [ ] Dockerize
+- [ ] Terraform script for automatically deploying to cloud provider(s) 
+- [ ] Integrate `ilp-plugin-xrp-hybrid` for on-ledger w/o payment channels settlement
 - [ ] Integrate `connector-peering-service` for autopeering
 - [ ] Tests
