@@ -19,8 +19,8 @@ function run () {
         filePath: {
           type: 'string',
           alias: 'f',
-          default: 'config.json',
-          description: 'Filepath to store configuration'
+          default: './config.json',
+          description: 'File to store configuration'
         }
       }, 
       handler: async (argv) => {
@@ -37,8 +37,8 @@ function run () {
         filePath: {
           type: 'string',
           alias: 'f',
-          default: 'config.json',
-          description: 'Filepath to store configuration'
+          default: './config.json',
+          description: 'File to load connector configuration'
         }
       }, 
       handler: async (argv) => {
@@ -52,17 +52,11 @@ function run () {
       command: 'addAccount', 
       describe: 'Add account to a running connector', 
       builder: {
-        testnet: {
-          type: 'boolean',
-          alias: 't',
-          default: false,
-          description: 'Interledger mainnet or testnet' 
-        },
         filePath: {
           type: 'string',
           alias: 'f',
-          default: 'config.json',
-          description: 'Filepath to store configuration'
+          default: './config.json',
+          description: 'File to append configuration for the connector account'
         },
         plugin: {
           type: 'string',
