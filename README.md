@@ -46,11 +46,11 @@ ecb addAccount -n xrpPeer
 **Note**: in the server/client prompt, the choice represents your role in the relationship (e.g. choosing `server` means you are the server).
 
 3) If you chose `server`, give your peer the URL returned in the logs of the format
-`btp+ws://<host>:<port>`<host>:<port>. If you have HTTPS set up on your machine, replace `btp+ws` for `btp+wss` in the URL.
+`btp+ws://<hostname>:<port>`. If you have HTTPS set up on your machine, replace `btp+ws` for `btp+wss` in the URL. Where `hostname` is your host/domain name.
 
-4) Check
-TODO
-----
+4) Now we can test if we can send packets to our peer. If you set this up on a remote machine, port-forward port `7770` to your local machine, then go to `localhost:7770` to access your connector's MoneyD-GUI. Here you should be able to go to the 'ping' tab, and input your peer's ILP address. If the ping succeeds, you are successfully peered! 
+
+### TODO
 - [x] Minimum default config
 - [x] Generate config through cli questions
 - [x] Configuration instructions
