@@ -42,30 +42,37 @@ function dumpConfig (config, path) {
   logger.info(`config written to ${path}`)
 }
 
-async function getBaseConfig (testnet) {
+async function getBaseConfig (testnet, inquire) {
   const ilpAddressRegex = /([a-zA-Z0-9_~-]+)+$/
   const env = testnet ? 'test' : 'production'
-  const name = (await inquirer.prompt({
-    type: 'input',
-    name: 'name',
-    message: 'connector name (with no network prefix):',
-    validate: (name) => (ilpAddressRegex.test(name))
-  })).name
+  let name
+  if (inquire) {
+    name = (await inquirer.prompt({
+      type: 'input',
+      name: 'name',
+      message: 'connector name (with no network prefix):',
+      validate: (name) => (ilpAddressRegex.test(name))
+    })).name
+  }
   
+  name = name || process.env.CONNECTOR_NAME
   return { env, name }
 }
 
-async function getXRPCredentials (testnet) {
+async function getXRPCredentials (testnet, inquire) {
   const rippledServers = rippledList[testnet ? 'test' : 'live']
   const defaultRippled = rippledServers[Math.floor(Math.random() * rippledServers.length)]
   const res = { xrpServer: defaultRippled }
-  res.secret = (await inquirer.prompt({
-    type: 'password',
-    name: 'secret',
-    message: 'XRP secret (master or regular key)' + (testnet ? ' (optional):' : ':'),
-    mask: '*',
-    validate: (secret) => (testnet && secret.length === 0) || isValidSeed(secret)
-  })).secret
+  if (inquire) {
+    res.secret = (await inquirer.prompt({
+      type: 'password',
+      name: 'secret',
+      message: 'XRP secret (master or regular key)' + (testnet ? ' (optional):' : ':'),
+      mask: '*',
+      validate: (secret) => (testnet && secret.length === 0) || isValidSeed(secret)
+    })).secret
+  }
+  res.secret = res.secret || process.env.XRP_SECRET
 
   // generate testnet credentials if none passed in
   if (testnet && !res.secret) {
@@ -79,20 +86,16 @@ async function getXRPCredentials (testnet) {
     logger.info('waiting for testnet API to fund address...')
     await new Promise(resolve => setTimeout(resolve, 10000))
   } else {
-    res.address = (await inquirer.prompt({
-      type: 'input',
-      name: 'address',
-      message: 'XRP address:',
-      default: deriveAddress(deriveKeypair(res.secret).publicKey),
-      validate: (address) => isValidAccountID(address)
-    })).address
-
-    // ensure that the given account exists 
-    // and has enough XRP to create a channel
-    await validateAddress(res.xrpServer, res.address).catch((err) => {
-      logger.error('Error configuring xrp address: ' + err.message)
-      process.exit(1)
-    })
+    if (inquire) {
+      res.address = (await inquirer.prompt({
+        type: 'input',
+        name: 'address',
+        message: 'XRP address:',
+        default: deriveAddress(deriveKeypair(res.secret).publicKey),
+        validate: (address) => isValidAccountID(address)
+      })).address
+    }
+    res.address = res.address || process.env.XRP_ADDRESS
   }
 
   return res 

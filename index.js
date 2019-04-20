@@ -22,10 +22,16 @@ function run () {
           alias: 'f',
           default: './config.json',
           description: 'File to store configuration'
+        },
+        inquire: {
+          type: 'boolean',
+          alias: 'i',
+          default: 'false',
+          description: 'Cli prompt (true) or env (false)'
         }
       }, 
       handler: async (argv) => {
-        await app.configure(argv.testnet, argv.filePath).catch(e => {
+        await app.configure(argv.testnet, argv.filePath, argv.inquire).catch(e => {
           logger.error(e)
           process.exit(1)
         })

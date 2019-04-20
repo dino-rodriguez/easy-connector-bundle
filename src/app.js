@@ -37,13 +37,13 @@ async function addAccount (args) {
   dumpConfig(config, filePath)
 }
 
-async function configure (testnet, path) {
+async function configure (testnet, path, inquire) {
   if (fs.existsSync(path)) {
     throw Error('config already exists')
   }
   // Get a minimal config via cli from user
-  const base = await getBaseConfig(testnet) 
-  const xrp = await getXRPCredentials(testnet)
+  const base = await getBaseConfig(testnet, inquire) 
+  const xrp = await getXRPCredentials(testnet, inquire)
   dumpConfig({ base, xrp }, path)
 }
 

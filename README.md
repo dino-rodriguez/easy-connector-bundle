@@ -55,7 +55,7 @@ ecb addAccount -n xrpPeer
 - [x] Generate config through cli questions
 - [x] Configuration instructions
 - [ ] Inquirer for all other plugins other than `ilp-plugin-xrp-paychan`
-- [ ] Configuration through environment variables
+- [x] Configuration through environment variables
 - [ ] Dockerize
 - [ ] Terraform script for automatically deploying to cloud provider(s) 
 - [ ] Integrate `ilp-plugin-xrp-hybrid` for on-ledger w/o payment channels settlement
