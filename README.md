@@ -54,6 +54,7 @@ ecb addAccount -n xrpPeer
 - [x] Minimum default config
 - [x] Generate config through cli questions
 - [x] Configuration instructions
+- [ ] Inquirer for all other plugins other than `ilp-plugin-xrp-paychan`
 - [ ] Configuration through environment variables
 - [ ] Dockerize
 - [ ] Terraform script for automatically deploying to cloud provider(s) 
