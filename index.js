@@ -4,6 +4,7 @@ const argv = require('yargs')
 const logger = require('riverpig')('ecb:index')
 
 function run () {
+  require('dotenv').config()
   argv 
     .usage('Usage: $0 <command> [options]')
     .command({

@@ -26,7 +26,7 @@ async function addAccount (args) {
   // Add plugin via admin API
   // TODO: admin API hanging on plugin connect
   // after adding plugin, should await here
-  const res = fetch('http://localhost:7769/addAccount', {
+  const res = fetch(`http://localhost:${process.env.ADMIN_API_PORT}/addAccount`, {
     method: 'post',
     body:    JSON.stringify({ id: name, options: pluginOpts }),
     headers: { 'Content-Type': 'application/json' },
@@ -66,7 +66,7 @@ async function start (path) {
     const localPartialOpts = { 
       options: {
         wsOpts: {
-          port: 7768
+          port: process.env.LOCAL_PORT
         }
       }
     }
@@ -74,7 +74,7 @@ async function start (path) {
     await connector.addPlugin('local', localOpts)
     const xrpServerPartialOpts = {
       options: {
-        port: 8000,
+        port: process.env.XRP_SERVER_PORT,
         address: config.xrp.address,
         secret: config.xrp.secret,
         xrpServer: config.xrp.xrpServer
@@ -100,9 +100,9 @@ async function start (path) {
   // Connect to `local` plugin on connector
   await startSPSPServer({
     plugin: new BtpPlugin({
-      server: 'btp+ws://:abc@localhost:7768' 
+      server: `btp+ws://:abc@localhost:${process.env.LOCAL_PORT}` 
     }),
-    port: 9000 
+    port: process.env.SPSP_PORT 
   }) 
 
   // MoneyD GUI

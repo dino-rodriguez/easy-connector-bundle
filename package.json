@@ -10,6 +10,7 @@
     "ecb": "./bin/global.js"
   },
   "dependencies": {
+    "dotenv": "^7.0.0",
     "ilp-connector": "^22.2.0",
     "ilp-plugin-btp": "^1.3.7",
     "ilp-plugin-http": "^1.2.1",
